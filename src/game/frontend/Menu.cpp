@@ -39,29 +39,7 @@ namespace YimMenu
 			    ImGui::PushFont(Menu::Font::g_DefaultFont);
 			    ImGui::PushStyleColor(ImGuiCol_WindowBg, ImU32(ImColor(15, 15, 15)));
 
-			    ImGui::SetNextWindowSize(ImVec2((*Pointers.ScreenResX / 2.5), (*Pointers.ScreenResY / 2.5)), ImGuiCond_Once);
-			    if (ImGui::Begin("YimMenuV2", nullptr, ImGuiWindowFlags_NoDecoration))
-			    {
-				    //ImGui::BeginDisabled(*Pointers.IsSessionStarted);
-				    if (ImGui::Button("Unload", ImVec2(120, 0)))
-				    {
-					    if (true)
-					    {
-						    FiberPool::Push([] {
-							    Commands::Shutdown();
-							    g_Running = false;
-						    });
-					    }
-					    else
-					    {
-						    g_Running = false;
-					    }
-				    }
-				    //ImGui::EndDisabled();
-
 				    UIManager::Draw();
-			    }
-			    ImGui::End();
 
 			    ImGui::PopStyleColor();
 			    ImGui::PopFont();
@@ -76,35 +54,35 @@ namespace YimMenu
 		style.Colors[ImGuiCol_Text]         = ImVec4(0.90f, 0.90f, 0.90f, 1.00f);
 		style.Colors[ImGuiCol_TextDisabled] = ImVec4(0.50f, 0.50f, 0.50f, 1.00f);
 
-		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.10f, 0.10f, 0.12f, 1.00f);
-		style.Colors[ImGuiCol_ChildBg]  = ImVec4(0.12f, 0.12f, 0.14f, 1.00f);
-		style.Colors[ImGuiCol_PopupBg]  = ImVec4(0.08f, 0.08f, 0.10f, 0.95f);
+		style.Colors[ImGuiCol_WindowBg] = ImVec4(0.08f, 0.08f, 0.09f, 1.00f);
+		style.Colors[ImGuiCol_ChildBg]  = ImVec4(0.10f, 0.10f, 0.12f, 1.00f);
+		style.Colors[ImGuiCol_PopupBg]  = ImVec4(0.07f, 0.07f, 0.09f, 0.95f);
 
 		style.Colors[ImGuiCol_Border]         = ImVec4(0.28f, 0.28f, 0.28f, 0.25f);
-		style.Colors[ImGuiCol_FrameBg]        = ImVec4(0.18f, 0.18f, 0.20f, 1.00f);
-		style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.35f, 0.40f, 0.50f, 0.75f);
-		style.Colors[ImGuiCol_FrameBgActive]  = ImVec4(0.45f, 0.50f, 0.60f, 0.85f);
+		style.Colors[ImGuiCol_FrameBg]        = ImVec4(0.15f, 0.15f, 0.17f, 1.00f);
+		style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.45f, 0.10f, 0.10f, 0.75f);
+		style.Colors[ImGuiCol_FrameBgActive]  = ImVec4(0.65f, 0.15f, 0.15f, 0.85f);
 
-		style.Colors[ImGuiCol_Button]        = ImVec4(0.40f, 0.25f, 0.50f, 1.00f);
-		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.50f, 0.35f, 0.60f, 1.00f);
-		style.Colors[ImGuiCol_ButtonActive]  = ImVec4(0.60f, 0.45f, 0.75f, 1.00f);
+		style.Colors[ImGuiCol_Button]        = ImVec4(0.55f, 0.10f, 0.10f, 1.00f);
+		style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.75f, 0.15f, 0.15f, 1.00f);
+		style.Colors[ImGuiCol_ButtonActive]  = ImVec4(0.90f, 0.20f, 0.20f, 1.00f);
 
-		style.Colors[ImGuiCol_TitleBg]          = ImVec4(0.08f, 0.08f, 0.10f, 1.00f);
-		style.Colors[ImGuiCol_TitleBgActive]    = ImVec4(0.10f, 0.12f, 0.14f, 1.00f);
-		style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.05f, 0.05f, 0.06f, 1.00f);
+		style.Colors[ImGuiCol_TitleBg]          = ImVec4(0.06f, 0.06f, 0.07f, 1.00f);
+		style.Colors[ImGuiCol_TitleBgActive]    = ImVec4(0.09f, 0.09f, 0.11f, 1.00f);
+		style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.04f, 0.04f, 0.05f, 1.00f);
 
-		style.Colors[ImGuiCol_Tab]        = ImVec4(0.25f, 0.20f, 0.45f, 0.85f);
-		style.Colors[ImGuiCol_TabHovered] = ImVec4(0.35f, 0.30f, 0.65f, 0.85f);
-		style.Colors[ImGuiCol_TabActive]  = ImVec4(0.40f, 0.35f, 0.75f, 1.00f);
+		style.Colors[ImGuiCol_Tab]        = ImVec4(0.35f, 0.10f, 0.10f, 0.85f);
+		style.Colors[ImGuiCol_TabHovered] = ImVec4(0.60f, 0.15f, 0.15f, 0.85f);
+		style.Colors[ImGuiCol_TabActive]  = ImVec4(0.70f, 0.20f, 0.20f, 1.00f);
 
-		style.Colors[ImGuiCol_Header]        = ImVec4(0.20f, 0.25f, 0.35f, 1.00f);
-		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.35f, 0.40f, 0.50f, 1.00f);
-		style.Colors[ImGuiCol_HeaderActive]  = ImVec4(0.45f, 0.50f, 0.60f, 1.00f);
+		style.Colors[ImGuiCol_Header]        = ImVec4(0.20f, 0.10f, 0.10f, 1.00f);
+		style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.45f, 0.15f, 0.15f, 1.00f);
+		style.Colors[ImGuiCol_HeaderActive]  = ImVec4(0.60f, 0.20f, 0.20f, 1.00f);
 
 		style.Colors[ImGuiCol_PlotLines]            = ImVec4(0.80f, 0.80f, 0.00f, 0.00f);
 		style.Colors[ImGuiCol_PlotLinesHovered]     = ImVec4(1.00f, 0.85f, 0.00f, 1.00f);
-		style.Colors[ImGuiCol_PlotHistogram]        = ImVec4(0.90f, 0.70f, 0.20f, 1.00f);
-		style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.80f, 0.40f, 1.00f);
+		style.Colors[ImGuiCol_PlotHistogram]        = ImVec4(0.75f, 0.10f, 0.10f, 1.00f); // red
+		style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.90f, 0.20f, 0.20f, 1.00f); // lighter red
 
 		style.GrabRounding = style.FrameRounding = style.ChildRounding = style.WindowRounding = 8.0f;
 	}
@@ -112,7 +90,7 @@ namespace YimMenu
 	void Menu::SetupFonts()
 	{
 		auto& IO         = ImGui::GetIO();
-		auto file_path   = std::filesystem::path(std::getenv("appdata")) / "YimMenuV2" / "imgui.ini";
+		auto file_path   = std::filesystem::path(std::getenv("appdata")) / "ChronixV2" / "imgui.ini";
 		static auto path = file_path.string();
 		IO.IniFilename   = path.c_str();
 		IO.LogFilename   = NULL;
@@ -124,6 +102,8 @@ namespace YimMenu
 		Menu::Font::g_ChildTitleFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_ChildTitleFontSize, &FontCfg);
 		Menu::Font::g_ChatFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_ChatFontSize, &FontCfg);
 		Menu::Font::g_OverlayFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::MainFont), sizeof(Fonts::MainFont), Menu::Font::g_OverlayFontSize, &FontCfg);
+		static const ImWchar full_range[] = {0x0020, 0xFFFF, 0};
+		Menu::Font::g_AwesomeFont = IO.Fonts->AddFontFromMemoryTTF(const_cast<std::uint8_t*>(Fonts::IconFont), sizeof(Fonts::IconFont), Menu::Font::g_AwesomeFontSize, &FontCfg, full_range);
 		UIManager::SetOptionsFont(Menu::Font::g_OptionsFont);
 	}
 }
