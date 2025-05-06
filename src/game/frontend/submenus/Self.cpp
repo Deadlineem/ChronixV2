@@ -6,12 +6,13 @@
 namespace YimMenu::Submenus
 {
 	Self::Self() :
-	    Submenu::Submenu("Self")
+		#define ICON_FA_USER "\xef\x80\x87" 
+	    Submenu::Submenu("Self", ICON_FA_USER)
 	{
 		auto main          = std::make_shared<Category>("Main");
 		auto globalsGroup  = std::make_shared<Group>("Globals");
 		auto movementGroup = std::make_shared<Group>("Movement");
-		auto toolsGroup    = std::make_shared<Group>("Tools", 2);
+		auto toolsGroup    = std::make_shared<Group>("Tools", 1);
 		auto wantedGroup   = std::make_shared<Group>("Wanted");
 
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("godmode"_J));
@@ -23,10 +24,8 @@ namespace YimMenu::Submenus
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("unlimitedoxygen"_J));
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("formatmoney"_J));
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("mobileradio"_J));
-		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("keepplayerclean"_J));
 
 		toolsGroup->AddItem(std::make_shared<CommandItem>("skipcutscene"_J));
-		toolsGroup->AddItem(std::make_shared<CommandItem>("skipconversation"_J));
 		toolsGroup->AddItem(std::make_shared<CommandItem>("suicide"_J));
 		toolsGroup->AddItem(std::make_shared<CommandItem>("heal"_J));
 		toolsGroup->AddItem(std::make_shared<CommandItem>("cleardamage"_J));
@@ -64,9 +63,7 @@ namespace YimMenu::Submenus
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteammo"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteclip"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("rapidfire"_J));
-		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("aimbot"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteparachutes"_J));
-		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("ExplosiveAmmo"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<CommandItem>("giveallweapons"_J));
 
 		weapons->AddItem(weaponsGlobalsGroup);
