@@ -53,7 +53,7 @@
 ChronixV2 is provided **as-is** for **experimental and educational purposes**.  
 We are not responsible for any bans, account issues, or game instability. Use at your own risk.
 
-YeetModz is based off of [YimMenuV2](https://github.com/YimMenu/YimMenuV2) with our own added features and changes.
+ChronixV2 is based off of [YimMenuV2](https://github.com/YimMenu/YimMenuV2) with our own added features and changes.
 
 
 ## License & User Rights
