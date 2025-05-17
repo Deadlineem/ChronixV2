@@ -4,12 +4,13 @@
 #include "game/frontend/items/Items.hpp"
 #include "game/frontend/submenus/Network/SavedPlayers.hpp"
 #include "game/gta/Network.hpp"
-#include "game/frontend/submenus/network/RandomEvents.hpp"
+#include "game/frontend/submenus/Network/RandomEvents.hpp"
 
 namespace YimMenu::Submenus
 {
 	Network::Network() :
-	    Submenu::Submenu("Network")
+#define ICON_FA_ROUTE "\xef\x9b\xbf"
+	    Submenu::Submenu("Network", ICON_FA_ROUTE)
 	{
 		// TODO: this needs a rework
 		auto session = std::make_shared<Category>("Session");
@@ -79,7 +80,6 @@ namespace YimMenu::Submenus
 		enhancements->AddItem(std::make_shared<BoolCommandItem>("despawnbypass"_J)); // move this somewhere else?
 		enhancements->AddItem(std::make_shared<BoolCommandItem>("bypasscasinogeoblock"_J));
 		enhancements->AddItem(std::make_shared<BoolCommandItem>("forcescripthost"_J));
-		enhancements->AddItem(std::make_shared<BoolCommandItem>("pausegame"_J));
 	
 		session->AddItem(joinGroup);
 		session->AddItem(bountyGroup);
