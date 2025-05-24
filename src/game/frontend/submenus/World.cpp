@@ -4,7 +4,8 @@
 namespace YimMenu::Submenus
 {
 	World::World() :
-	    Submenu::Submenu("World")
+		#define ICON_FA_GLOBE "\xef\x82\xac"
+	    Submenu::Submenu("World", ICON_FA_GLOBE)
 	{
 		auto main          = std::make_shared<Category>("Main");
 		auto spawnersGroup = std::make_shared<Category>("Spawners");
@@ -27,32 +28,25 @@ namespace YimMenu::Submenus
 		weatherOpts->AddItem(std::make_shared<ConditionalItem>("forceweather"_J, std::make_shared<CommandItem>("setweather"_J), true));
 		weatherOpts->AddItem(std::make_shared<BoolCommandItem>("forceweather"_J));
 
-		auto otherOpts = std::make_shared<Group>("Other", 1);
-		otherOpts->AddItem(std::make_shared<BoolCommandItem>("pedsignore"_J));
-		otherOpts->AddItem(std::make_shared<BoolCommandItem>("PedRiotMode"_J));
-		otherOpts->AddItem(std::make_shared<BoolCommandItem>("CopsDispatch"_J));
-
 		main->AddItem(std::move(killPeds));
 		main->AddItem(std::move(deleteOpts));
 		main->AddItem(std::move(bringOpts));
 		main->AddItem(std::move(weatherOpts));
-		main->AddItem(std::move(otherOpts));
 
-		auto spawnVehicle = std::make_shared<Group>("Vehicle");
-		spawnVehicle->AddItem(std::make_shared<StringCommandItem>("vehmodelname"_J));
-		spawnVehicle->AddItem(std::make_shared<CommandItem>("spawnvehicle"_J));
+		auto spawnGroup = std::make_shared<Group>("Vehicle");
+		auto modsGroup  = std::make_shared<Group>("Modifications");	
 
-		auto spawnPed = std::make_shared<Group>("Ped");
-		spawnPed->AddItem(std::make_shared<StringCommandItem>("pedmodelname"_J));
-		spawnPed->AddItem(std::make_shared<CommandItem>("spawnped"_J));
+		spawnGroup->AddItem(std::make_shared<StringCommandItem>("vehmodelname"_J));
+		spawnGroup->AddItem(std::make_shared<BoolCommandItem>("spawninvehicle"_J));
+		spawnGroup->AddItem(std::make_shared<BoolCommandItem>("spawnupgraded"_J));
+		spawnGroup->AddItem(std::make_shared<BoolCommandItem>("usecustomlicenseplate"_J));
+		spawnGroup->AddItem(std::make_shared<ConditionalItem>("usecustomlicenseplate"_J, std::make_shared<StringCommandItem>("customlicenseplate"_J)));
+		spawnGroup->AddItem(std::make_shared<CommandItem>("spawnvehicle"_J));
 
-		auto spawnObject = std::make_shared<Group>("Object");
-		spawnObject->AddItem(std::make_shared<StringCommandItem>("objectmodelname"_J));
-		spawnObject->AddItem(std::make_shared<CommandItem>("spawnobject"_J));
+		modsGroup->AddItem(std::make_shared<BoolCommandItem>("lsccustomsbypass"_J));
 
-		spawnersGroup->AddItem(spawnVehicle);
-		spawnersGroup->AddItem(spawnPed);
-		spawnersGroup->AddItem(spawnObject);
+		spawnersGroup->AddItem(spawnGroup);
+		spawnersGroup->AddItem(modsGroup);
 
 		iplsGroup->AddItem(std::make_shared<ListCommandItem>("iplselector"_J));
 		iplsGroup->AddItem(std::make_shared<CommandItem>("loadipl"_J));

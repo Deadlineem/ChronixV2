@@ -7,7 +7,8 @@
 namespace YimMenu::Submenus
 {
 	Recovery::Recovery() :
-	    Submenu::Submenu("Recovery")
+		#define ICON_FA_SACK_DOLLAR "\xef\x93\x80"
+		Submenu::Submenu("Recovery", ICON_FA_SACK_DOLLAR)
 	{
 		auto missions = std::make_shared<Category>("Missions");
 		auto vehiclesGroup = std::make_shared<Group>("Vehicles");

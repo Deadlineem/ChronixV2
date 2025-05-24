@@ -2,17 +2,17 @@
 
 #include "core/util/Joaat.hpp"
 #include "game/frontend/items/Items.hpp"
-#include "OutfitEditor.hpp"
 
 namespace YimMenu::Submenus
 {
 	Self::Self() :
-	    Submenu::Submenu("Self")
+		#define ICON_FA_USER "\xef\x80\x87" 
+	    Submenu::Submenu("Self", ICON_FA_USER)
 	{
 		auto main          = std::make_shared<Category>("Main");
 		auto globalsGroup  = std::make_shared<Group>("Globals");
 		auto movementGroup = std::make_shared<Group>("Movement");
-		auto toolsGroup    = std::make_shared<Group>("Tools", 2);
+		auto toolsGroup    = std::make_shared<Group>("Tools", 1);
 		auto wantedGroup   = std::make_shared<Group>("Wanted");
 
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("godmode"_J));
@@ -24,10 +24,8 @@ namespace YimMenu::Submenus
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("unlimitedoxygen"_J));
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("formatmoney"_J));
 		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("mobileradio"_J));
-		globalsGroup->AddItem(std::make_shared<BoolCommandItem>("keepplayerclean"_J));
 
 		toolsGroup->AddItem(std::make_shared<CommandItem>("skipcutscene"_J));
-		toolsGroup->AddItem(std::make_shared<CommandItem>("skipconversation"_J));
 		toolsGroup->AddItem(std::make_shared<CommandItem>("suicide"_J));
 		toolsGroup->AddItem(std::make_shared<CommandItem>("heal"_J));
 		toolsGroup->AddItem(std::make_shared<CommandItem>("cleardamage"_J));
@@ -61,24 +59,34 @@ namespace YimMenu::Submenus
 
 		auto weapons             = std::make_shared<Category>("Weapons");
 		auto weaponsGlobalsGroup = std::make_shared<Group>("Globals");
-		auto weaponsAimbotGroup  = std::make_shared<Group>("Aimbot", 1);
 
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteammo"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteclip"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("rapidfire"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("infiniteparachutes"_J));
-		weaponsGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("ExplosiveAmmo"_J));
 		weaponsGlobalsGroup->AddItem(std::make_shared<CommandItem>("giveallweapons"_J));
 
-		weaponsAimbotGroup->AddItem(std::make_shared<BoolCommandItem>("aimbot"_J));
-		weaponsAimbotGroup->AddItem(std::make_shared<ConditionalItem>("aimbot"_J, std::make_shared<BoolCommandItem>("aimbotaimforhead"_J)));
-		weaponsAimbotGroup->AddItem(std::make_shared<ConditionalItem>("aimbot"_J, std::make_shared<BoolCommandItem>("aimbottargetdrivers"_J)));
-
 		weapons->AddItem(weaponsGlobalsGroup);
-		weapons->AddItem(weaponsAimbotGroup);
 		AddCategory(std::move(weapons));
 
-		auto outfitEditorCategory = YimMenu::CreateOutfitsMenu();
-		AddCategory(std::move(outfitEditorCategory));
+		auto vehicle = std::make_shared<Category>("Vehicle");
+		auto vehicleGlobalsGroup = std::make_shared<Group>("Globals");
+		auto vehicleMiscGroup = std::make_shared<Group>("Misc");
+
+		vehicleGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("vehiclegodmode"_J, "Godmode"));
+		vehicleGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("keepfixed"_J, "Keep Fixed"));
+		vehicleGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("hornboost"_J));
+		vehicleGlobalsGroup->AddItem(std::make_shared<BoolCommandItem>("modifyboostbehavior"_J));
+		vehicleGlobalsGroup->AddItem(std::make_shared<ConditionalItem>("modifyboostbehavior"_J, std::make_shared<ListCommandItem>("boostbehavior"_J)));
+		vehicleGlobalsGroup->AddItem(std::make_shared<CommandItem>("repairvehicle"_J));
+		vehicleGlobalsGroup->AddItem(std::make_shared<CommandItem>("enterlastvehicle"_J));
+
+		vehicleMiscGroup->AddItem(std::make_shared<BoolCommandItem>("speedometer"_J));
+		vehicleMiscGroup->AddItem(std::make_shared<BoolCommandItem>("seatbelt"_J));
+		vehicleMiscGroup->AddItem(std::make_shared<BoolCommandItem>("allowhatsinvehicles"_J));
+
+		vehicle->AddItem(vehicleGlobalsGroup);
+		vehicle->AddItem(vehicleMiscGroup);
+		AddCategory(std::move(vehicle));
 	}
 }

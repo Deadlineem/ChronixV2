@@ -32,7 +32,8 @@ namespace YimMenu::Submenus
 	};
 
 	Settings::Settings() :
-	    Submenu::Submenu("Settings")
+		#define ICON_FA_GEARS "\xef\x80\x93"
+	    Submenu::Submenu("Settings", ICON_FA_GEARS)
 	{
 		auto hotkeys           = std::make_shared<Category>("Hotkeys");
 		auto gui               = std::make_shared<Category>("GUI");
