@@ -53,15 +53,15 @@ jobs:
         run: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -S . -B build -G Ninja
 
       - name: Build 64bit RelWithDebInfo DLL
-        run: cmake --build ./build --config RelWithDebInfo --target YimMenuV2 --
+        run: cmake --build ./build --config RelWithDebInfo --target ChronixV2 --
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: binary
           path: |
-            build/YimMenuV2.dll
-            build/YimMenuV2.pdb
+            build/ChronixV2.dll
+            build/ChronixV2.pdb
 
       - name: Generate Build Info
         id: var
@@ -126,7 +126,7 @@ jobs:
       - name: Echo build sha256
         id: build_sha
         run: |
-          sha256sum YimMenuV2.dll > sha256.checksum
+          sha256sum ChronixV2.dll > sha256.checksum
           echo "build_sha=$(cat sha256.checksum)" >> $GITHUB_OUTPUT
           cat sha256.checksum
 
@@ -159,4 +159,4 @@ jobs:
             ${{ needs.build_nightly.outputs.full_sha }}
             ```
           files: |
-            YimMenuV2.dll
+            ChronixV2.dll

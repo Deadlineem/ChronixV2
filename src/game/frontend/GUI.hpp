@@ -31,7 +31,7 @@ namespace YimMenu
 			GetInstance().m_IsOpen ^= true;
 		}
 
-		static bool IsUsingKeyboard()
+		static bool IsUsingKeyboard() 
 		{
 			return ImGui::GetIO().WantTextInput;
 		}

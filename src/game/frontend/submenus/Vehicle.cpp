@@ -1,13 +1,13 @@
+
 #include "Vehicle.hpp"
 #include "game/frontend/items/Items.hpp"
 #include "game/frontend/submenus/Vehicle/SpawnVehicle.hpp"
-#include "Vehicle/VehicleEditor.hpp"
-#include "Vehicle/SavedVehicles.hpp"
 
 namespace YimMenu::Submenus
 {
 	Vehicle::Vehicle() :
-		Submenu::Submenu("Vehicle")
+#define ICON_FA_CAR "\xef\x86\xb9"
+	    Submenu::Submenu("Vehicle", ICON_FA_CAR)
 	{
 		auto main = std::make_shared<Category>("Main");
 
@@ -39,7 +39,5 @@ namespace YimMenu::Submenus
 
 		AddCategory(std::move(main));
 		AddCategory(BuildSpawnVehicleMenu());
-		AddCategory(BuildVehicleEditorMenu());
-		AddCategory(BuildSavedVehiclesMenu());
 	}
 }

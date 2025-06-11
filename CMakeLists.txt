@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.20.x)
 
 include(cmake/cross-compile.cmake)
 
-project(YimMenuV2 VERSION 0.0.1 DESCRIPTION "A new base using new C++ features optimised for speed and ease of use")
+project(ChronixV2 VERSION 0.0.1 DESCRIPTION "A new base using new C++ features optimised for speed and ease of use")
 
 # libs
 include(cmake/async-logger.cmake)
 include(cmake/imgui.cmake)
 include(cmake/json.cmake)
-include(cmake/minhook.cmake)
+include(cmake/minhook.cmake) 
 
 # source
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
@@ -33,8 +33,9 @@ message(STATUS "Setting up include directories.")
 target_include_directories(${PROJECT_NAME} PRIVATE
     "${SRC_DIR}"
     "${imgui_SOURCE_DIR}"
-    "${minhook_SOURCE_DIR}/include"
-    "${minhook_SOURCE_DIR}/src/hde"
+    "${minhook_SOURCE_DIR}/include"    
+    "${minhook_SOURCE_DIR}/src/hde"    
+    "${gtav_classes_SOURCE_DIR}"
 )
 
 message(STATUS "Setting up linked libraries")

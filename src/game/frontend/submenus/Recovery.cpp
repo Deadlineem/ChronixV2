@@ -1,13 +1,14 @@
 #include "Recovery.hpp"
-#include "Recovery/HeistModifier.hpp"
+#include "game/frontend/items/Items.hpp"
 #include "Recovery/StatEditor.hpp"
 #include "Recovery/Transactions.hpp"
-#include "game/frontend/items/Items.hpp"
+#include "Recovery/HeistModifier.hpp"
 
 namespace YimMenu::Submenus
 {
 	Recovery::Recovery() :
-	    Submenu::Submenu("Recovery")
+		#define ICON_FA_SACK_DOLLAR "\xef\x93\x80"
+		Submenu::Submenu("Recovery", ICON_FA_SACK_DOLLAR)
 	{
 		auto missions   = std::make_shared<Category>("Missions");
 		auto businesses = std::make_shared<Category>("Businesses");
@@ -22,11 +23,6 @@ namespace YimMenu::Submenus
 		generalGroup->AddItem(std::make_shared<BoolCommandItem>("unlockgtaplus"_J));
 		generalGroup->AddItem(std::make_shared<BoolCommandItem>("overriderpmultiplier"_J));
 		generalGroup->AddItem(std::make_shared<ConditionalItem>("overriderpmultiplier"_J, std::make_shared<FloatCommandItem>("rpmultiplierinput"_J)));
-		
-		generalGroup->AddItem(std::make_shared<BoolCommandItem>("freechangeappearance"_J));
-		generalGroup->AddItem(std::make_shared<BoolCommandItem>("nochangeappearancecooldown"_J));
-		generalGroup->AddItem(std::make_shared<BoolCommandItem>("allowgenderchange"_J));
-		
 
 		businessGroup->AddItem(std::make_shared<ListCommandItem>("businesssafe"_J));
 		businessGroup->AddItem(std::make_shared<CommandItem>("claimsafeearnings"_J));
