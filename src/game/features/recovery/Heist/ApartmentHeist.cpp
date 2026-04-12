@@ -1,6 +1,5 @@
 #include "core/commands/IntCommand.hpp"
 #include "core/commands/Command.hpp"
-#include "core/commands/LoopedCommand.hpp"
 #include "game/gta/Stats.hpp"
 #include "game/backend/Players.hpp"
 #include "game/gta/ScriptGlobal.hpp"
@@ -149,12 +148,11 @@ namespace YimMenu::Features
 			}
 		};
 
-		class PacificBonusLoop : public LoopedCommand
+		class ApplyPacificBonus : public Command
 		{
-		public:
-			using LoopedCommand::LoopedCommand;
+			using Command::Command;
 
-			virtual void OnTick() override
+			virtual void OnCall() override
 			{
 				const int value = 268435455;
 
@@ -177,6 +175,6 @@ namespace YimMenu::Features
 		static SkipSwiping _ApartmentHeistSkipSwiping{"apartmentheistskipswiping", "Skip Swiping", "Skips card swiping process"};
 		static InstantFinish _ApartmentHeistInstantFinish{"apartmentheistinstantfinish", "Instant Finish", "Instantly passes the heist"};
 		static InstantFinishPacific _ApartmentHeistInstantFinishPacific{"apartmentheistinstantfinishpacific", "Instant Finish (Pacific)", "Instantly passes Pacific Standard Job"};
-		static PacificBonusLoop _PacificBonusLoop{"pacificbonusloop", "Pacific 12mil Bonus", "Gets you the 12mil Bonus in the Pacific Standard Heist"};
+		static ApplyPacificBonus _ApplyPacificBonus{"pacificbonus", "Pacific 12mil Bonus", "Note: Apply this BEFORE starting and finishing the Heist"};
 	}
 }
