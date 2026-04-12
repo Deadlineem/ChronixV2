@@ -9,6 +9,7 @@ namespace YimMenu::Submenus
 		auto cuts = std::make_shared<Group>("Heist Cuts", 2);
 		auto setups = std::make_shared<Group>("Heist Setups");
 		auto misc = std::make_shared<Group>("Misc", 1);
+		auto bonus = std::make_shared<Group>("Pacific Bonus", 1); 
 
 		cuts->AddItem(std::make_shared<IntCommandItem>("apartmentheistcut1"_J));
 		cuts->AddItem(std::make_shared<IntCommandItem>("apartmentheistcut3"_J));
@@ -25,9 +26,12 @@ namespace YimMenu::Submenus
 		misc->AddItem(std::make_shared<CommandItem>("apartmentheistinstantfinish"_J));
 		misc->AddItem(std::make_shared<CommandItem>("apartmentheistinstantfinishpacific"_J));
 
+		bonus->AddItem(std::make_shared<BoolCommandItem>("pacificbonusloop"_J));
+
 		tab->AddItem(cuts);
 		tab->AddItem(setups);
 		tab->AddItem(misc);
+		tab->AddItem(bonus); 
 
 		return tab;
 	}
