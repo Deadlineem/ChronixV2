@@ -1,5 +1,6 @@
 #include "core/commands/IntCommand.hpp"
 #include "core/commands/Command.hpp"
+#include "core/commands/LoopedCommand.hpp"
 #include "game/gta/Stats.hpp"
 #include "game/backend/Players.hpp"
 #include "game/gta/ScriptGlobal.hpp"
@@ -33,7 +34,7 @@ namespace YimMenu::Features
 				ScriptMgr::Yield(500ms);
 
 				*base2.At(0, 1).As<int*>() = -1 * (*base1.At(0, 1).As<int*>() + *base1.At(1, 1).As<int*>() + *base1.At(2, 1).As<int*>() + *base1.At(3, 1).As<int*>() - 100);
-				
+
 				for (int i = 1; i <= 3; i++)
 				{
 					*base2.At(i, 1).As<int*>() = *base1.At(i, 1).As<int*>();
@@ -148,6 +149,26 @@ namespace YimMenu::Features
 			}
 		};
 
+		class PacificBonusLoop : public LoopedCommand
+		{
+		public:
+			using LoopedCommand::LoopedCommand;
+
+			virtual void OnTick() override
+			{
+				const int value = 268435455;
+
+				Stats::SetInt("MPPLY_HEISTFLOWORDERPROGRESS", value);
+				Stats::SetBool("MPPLY_AWD_HST_ORDER", false);
+
+				Stats::SetInt("MPPLY_HEISTTEAMPROGRESSBITSET", value);
+				Stats::SetBool("MPPLY_AWD_HST_SAME_TEAM", false);
+
+				Stats::SetInt("MPPLY_HEISTNODEATHPROGREITSET", value);
+				Stats::SetBool("MPPLY_AWD_HST_ULT_CHAL", false);
+			}
+		};
+
 		static SetCuts _ApartmentHeistSetCuts{"apartmentheistsetcuts", "Set Cuts", "Sets heist cut"};
 		static ForceReady _ApartmentHeistForceReady{"apartmentheistforceready", "Force Ready", "Forces all players to be ready"};
 		static Setup _ApartmentHeistSetup{"apartmentheistsetup", "Setup", "Sets up current apartment heist"};
@@ -156,5 +177,6 @@ namespace YimMenu::Features
 		static SkipSwiping _ApartmentHeistSkipSwiping{"apartmentheistskipswiping", "Skip Swiping", "Skips card swiping process"};
 		static InstantFinish _ApartmentHeistInstantFinish{"apartmentheistinstantfinish", "Instant Finish", "Instantly passes the heist"};
 		static InstantFinishPacific _ApartmentHeistInstantFinishPacific{"apartmentheistinstantfinishpacific", "Instant Finish (Pacific)", "Instantly passes Pacific Standard Job"};
+		static PacificBonusLoop _PacificBonusLoop{"pacificbonusloop", "Pacific 12mil Bonus", "Gets you the 12mil Bonus in the Pacific Standard Heist"};
 	}
 }
