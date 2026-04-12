@@ -1,9 +1,11 @@
 name: Nightly Build
 
 on:
+  push:
+    branches:
+      - main  # or specify other branches
   schedule:
-    # cronjob that triggers every day at 2PM UTC
-    - cron: "0 14 * * *"
+    - cron: "0 14 * * *" # 2PM UTC daily
   workflow_dispatch:
 
 concurrency:
@@ -29,7 +31,7 @@ jobs:
           fi
 
   build_nightly:
-    runs-on: windows-latest
+    runs-on: [self-hosted, Windows]
     name: Build Nightly
     needs: check_recent_commit
     if: needs.check_recent_commit.outputs.should_run == 'true'
@@ -53,15 +55,15 @@ jobs:
         run: cmake -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_BUILD_TYPE=RelWithDebInfo -S . -B build -G Ninja
 
       - name: Build 64bit RelWithDebInfo DLL
-        run: cmake --build ./build --config RelWithDebInfo --target YimMenuV2 --
+        run: cmake --build ./build --config RelWithDebInfo --target ChronixV2 --
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: binary
           path: |
-            build/YimMenuV2.dll
-            build/YimMenuV2.pdb
+            build/ChronixV2.dll
+            build/ChronixV2.pdb
 
       - name: Generate Build Info
         id: var
@@ -81,38 +83,24 @@ jobs:
         id: delete_release
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.Workflow }}  # ✅ REQUIRED HERE
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const tag = "nightly";
 
-            // List all releases and find the release by tag
-            const releases = await github.rest.repos.listReleases({
-              owner: owner,
-              repo: repo,
-            });
+            const releases = await github.rest.repos.listReleases({ owner, repo });
+            const release = releases.data.find(r => r.tag_name === tag);
 
-            const release = releases.data.find(release => release.tag_name === tag);
-
-            // Check if the release exists and delete it
             if (release) {
-              await github.rest.repos.deleteRelease({
-                owner: owner,
-                repo: repo,
-                release_id: release.id,
-              });
-              console.log(`Deleted release with ID ${release.id}`);
+              await github.rest.repos.deleteRelease({ owner, repo, release_id: release.id });
+              console.log(`Deleted release ID ${release.id}`);
             } else {
-              console.log("No existing release to delete");
+              console.log("No existing release found.");
             }
 
-            // Delete the tag
             try {
-              await github.rest.git.deleteRef({
-                owner: owner,
-                repo: repo,
-                ref: `tags/${tag}`,
-              });
+              await github.rest.git.deleteRef({ owner, repo, ref: `tags/${tag}` });
               console.log(`Deleted tag ${tag}`);
             } catch (error) {
               console.error(`Error deleting tag: ${error.message}`);
@@ -126,12 +114,14 @@ jobs:
       - name: Echo build sha256
         id: build_sha
         run: |
-          sha256sum YimMenuV2.dll > sha256.checksum
+          sha256sum ChronixV2.dll > sha256.checksum
           echo "build_sha=$(cat sha256.checksum)" >> $GITHUB_OUTPUT
           cat sha256.checksum
 
       - name: Nightly Release
         uses: softprops/action-gh-release@v2.2.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.Workflow }}
         with:
           name: Nightly [${{ needs.build_nightly.outputs.short_sha }}]
           tag_name: nightly
@@ -159,4 +149,4 @@ jobs:
             ${{ needs.build_nightly.outputs.full_sha }}
             ```
           files: |
-            YimMenuV2.dll
+            ChronixV2.dll
