@@ -17,7 +17,7 @@ namespace YimMenu::Submenus
 
 		auto generalGroup = std::make_shared<Group>("General");
 		auto businessGroup = std::make_shared<Group>("General");
-		auto casinoSlots = std::make_shared<Group>("Slot Machines (1x Win 2x Loose repeat for lower Risk)");
+		auto casinoSlots = std::make_shared<Group>("Slot Machines (1x Win 2x Lose repeat for lower Risk)");
 		auto casinoWheel = std::make_shared<Group>("Lucky Wheel");
 		auto casinoBlackJack = std::make_shared<Group>("Blackjack");
 		//auto casinoRoulette = std::make_shared<Group>("Roulette");
