@@ -90,7 +90,7 @@ namespace YimMenu
 	void Menu::SetupFonts()
 	{
 		auto& IO = ImGui::GetIO();
-		auto file_path = std::filesystem::path(std::getenv("appdata")) / "YimMenuV2" / "imgui.ini";
+		auto file_path = std::filesystem::path(std::getenv("appdata")) / "ChronixV2" / "imgui.ini";
 		static auto path = file_path.string();
 		IO.IniFilename = path.c_str();
 		IO.LogFilename = NULL;
