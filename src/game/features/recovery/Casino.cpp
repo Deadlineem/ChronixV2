@@ -88,51 +88,6 @@ namespace YimMenu::Features
 		}
 	};
 
-	class CasinoBlackjackForceWin : public Command
-	{
-		using Command::Command;
-
-		virtual void OnCall() override
-		{
-			if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH("blackjack"_J))
-			{
-				int currentTable = *ScriptLocal("blackjack"_J, 1800).As<int*>();
-				LOG(INFO) << "Current table: " << currentTable;
-
-				if (currentTable >= 0)
-				{
-					int baseOffset = 987 + (currentTable * 13);
-					*ScriptLocal("blackjack"_J, baseOffset + 1).As<int*>() = 1;
-					*ScriptLocal("blackjack"_J, baseOffset + 2).As<int*>() = 10;
-					LOG(INFO) << "Blackjack forced win!";
-				}
-			}
-		}
-	};
-
-	class CasinoBlackjackDealerBust : public Command
-	{
-		using Command::Command;
-
-		virtual void OnCall() override
-		{
-			if (SCRIPT::GET_NUMBER_OF_THREADS_RUNNING_THE_SCRIPT_WITH_THIS_HASH("blackjack"_J))
-			{
-				int currentTable = *ScriptLocal("blackjack"_J, 1800).As<int*>();
-				LOG(INFO) << "Current table: " << currentTable;
-
-				if (currentTable >= 0)
-				{
-					int baseOffset = 987 + (currentTable * 13);
-					*ScriptLocal("blackjack"_J, baseOffset + 1).As<int*>() = 10;
-					*ScriptLocal("blackjack"_J, baseOffset + 2).As<int*>() = 10;
-					*ScriptLocal("blackjack"_J, baseOffset + 3).As<int*>() = 10;
-					LOG(INFO) << "Blackjack dealer forced to bust!";
-				}
-			}
-		}
-	};
-
 	class CasinoBypass : public LoopedCommand
 	{
 		using LoopedCommand::LoopedCommand;
@@ -189,8 +144,6 @@ namespace YimMenu::Features
 	static CasinoSlotsWin _CasinoSlotsWin{"casinoslotswin", "Rig Slot Machines", "Forces slot machines to give jackpot"};
 	static CasinoSlotsLose _CasinoSlotsLose{"casinoslotslose", "Lose Slot Machines", "Forces slot machines to lose"};
 	static CasinoGiveWheelPrize _CasinoGiveWheelPrize{"casinogivewheelprize", "Give Lucky Wheel Prize", "Gives selected lucky wheel prize"};
-	static CasinoBlackjackForceWin _CasinoBlackjackForceWin{"casinoblackjackforcewin", "Blackjack Force Win", "Forces a win at blackjack"};
-	static CasinoBlackjackDealerBust _CasinoBlackjackDealerBust{"casinoblackjackdealerbust", "Blackjack Dealer Bust", "Forces dealer to bust at blackjack"};
 	static CasinoBypass _CasinoBypass{"casinobypass", "Bypass Casino Limits", "Bypasses casino purchase and time limits"};
 	static CasinoAcquireChips _CasinoAcquireChips{"casinoacquirechips", "Set Chip Purchase Limit", "Sets maximum chips you can buy"};
 	static CasinoTradeChips _CasinoTradeChips{"casinotradechips", "Set Chip Trade Limit", "Sets maximum chips you can trade in"};
