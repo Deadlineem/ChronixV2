@@ -17,10 +17,11 @@ namespace YimMenu::Submenus
 
 		auto generalGroup = std::make_shared<Group>("General");
 		auto businessGroup = std::make_shared<Group>("General");
-		auto casinoSlots = std::make_shared<Group>("Slot Machines");
-		//auto casinoWheel = std::make_shared<Group>("Lucky Wheel");
-		//auto casinoBlackJack = std::make_shared<Group>("Blackjack");
+		auto casinoSlots = std::make_shared<Group>("Slot Machines (1x Win 2x Loose repeat for lower Risk)");
+		auto casinoWheel = std::make_shared<Group>("Lucky Wheel");
+		auto casinoBlackJack = std::make_shared<Group>("Blackjack");
 		//auto casinoRoulette = std::make_shared<Group>("Roulette");
+		auto casinoMisc = std::make_shared<Group>("Misc");
 		auto safeLoopGroup = std::make_shared<Group>("Safe Loops");
 
 		auto hangarGroup = std::make_shared<Group>("Hangar");
@@ -66,7 +67,19 @@ namespace YimMenu::Submenus
 		servicesGroup->AddItem(std::make_shared<CommandItem>("salvageyardpopularity"_J));
 		servicesGroup->AddItem(std::make_shared<CommandItem>("moneyfrontsheat"_J));
 
-		casinoSlots->AddItem(std::make_shared<BoolCommandItem>("casinomanipulaterigslotmachines"_J));
+		casinoSlots->AddItem(std::make_shared<CommandItem>("casinoslotswin"_J));
+		casinoSlots->AddItem(std::make_shared<CommandItem>("casinoslotslose"_J));
+
+		casinoWheel->AddItem(std::make_shared<ListCommandItem>("casinowheelprize"_J));
+		casinoWheel->AddItem(std::make_shared<CommandItem>("casinogivewheelprize"_J));
+
+		casinoBlackJack->AddItem(std::make_shared<CommandItem>("casinoblackjackforcewin"_J));
+		casinoBlackJack->AddItem(std::make_shared<CommandItem>("casinoblackjackdealerbust"_J));
+
+		casinoMisc->AddItem(std::make_shared<BoolCommandItem>("casinobypass"_J));
+		casinoMisc->AddItem(std::make_shared<ListCommandItem>("casinochiplimit"_J));
+		casinoMisc->AddItem(std::make_shared<CommandItem>("casinoacquirechips"_J));
+		casinoMisc->AddItem(std::make_shared<CommandItem>("casinotradechips"_J));
 
 		main->AddItem(generalGroup);
 		businesses->AddItem(businessGroup);
@@ -76,7 +89,11 @@ namespace YimMenu::Submenus
 		businesses->AddItem(mcBusinessGroup);
 		businesses->AddItem(specialBusinessGroup);
 		businesses->AddItem(servicesGroup);
+
 		casino->AddItem(casinoSlots);
+		casino->AddItem(casinoWheel);
+		casino->AddItem(casinoBlackJack);
+		casino->AddItem(casinoMisc);
 
 		AddCategory(std::move(main));
 		AddCategory(std::move(businesses));
